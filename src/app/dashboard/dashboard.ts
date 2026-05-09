@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit {
   resultadoPrediccion: any = null;
   alertaClimatica: any = null;
 
-  constructor() {}
+  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {}
 
@@ -44,6 +44,9 @@ export class DashboardComponent implements OnInit {
           nivel_riesgo: 'Alto'
         };
       }
+      
+      // Le avisamos a Angular que actualice la vista con los nuevos datos
+      this.cdr.detectChanges();
     }, 2000);
   }
 }
