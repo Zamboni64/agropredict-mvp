@@ -1,0 +1,45 @@
+<div class="dashboard-container">
+  
+  <div *ngIf="alertaClimatica" class="alerta-banner">
+    <p>¡Alerta de Riesgo Climático! {{ alertaClimatica.tipo_fenomeno }} detectado.</p>
+    <small>Nivel de riesgo: {{ alertaClimatica.nivel_riesgo }}</small>
+  </div>
+
+  <header>
+    <h1>Bienvenido, Productor</h1>
+    <p>AgroPredict IA - Panel de Control</p>
+  </header>
+
+  <div *ngIf="cargando" class="loading-state">
+    <p>⏳ Analizando datos climáticos y ejecutando modelo predictivo...</p>
+  </div>
+
+  <section class="mis-cultivos">
+    <div class="card-cultivo" *ngFor="let cultivo of cultivos">
+      <h3>{{ cultivo.tipo_cultivo }}</h3>
+      <p>Fase actual: {{ cultivo.estado_fase }}</p>
+      <button (click)="solicitarPrediccion(cultivo.id_cultivo)" class="btn-primary">
+        Generar Predicción con IA
+      </button>
+    </div>
+  </section>
+
+  <section *ngIf="resultadoPrediccion" class="resultados-financieros">
+    <h2>Proyección Financiera</h2>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <h4>Rendimiento Estimado</h4>
+        <p>{{ resultadoPrediccion.rendimiento_estimado_ton }} Ton</p>
+      </div>
+      <div class="kpi-card">
+        <h4>Precio Proyectado</h4>
+        <p>${{ resultadoPrediccion.precio_proyectado_cop }} COP</p>
+      </div>
+      <div class="kpi-card highlight">
+        <h4>ROI Calculado</h4>
+        <p>{{ resultadoPrediccion.roi_calculado_porcentaje }}%</p>
+      </div>
+    </div>
+  </section>
+
+</div>
