@@ -18,7 +18,7 @@
     <div class="card-cultivo" *ngFor="let cultivo of cultivos">
       <h3>{{ cultivo.tipo_cultivo }}</h3>
       <p>Fase actual: {{ cultivo.estado_fase }}</p>
-      <button (click)="solicitarPrediccion(cultivo.id_cultivo)" class="btn-primary" [disabled]="cargando">
+      <button (click)="solicitarPrediccion(cultivo)" class="btn-primary" [disabled]="cargando">
         {{ cargando ? 'Procesando...' : 'Generar Predicción con IA' }}
       </button>
     </div>
@@ -40,6 +40,28 @@
         <p>{{ resultadoPrediccion.roi_calculado_porcentaje }}%</p>
       </div>
     </div>
+  </section>
+
+  <section *ngIf="historialPredicciones.length > 0" class="resultados-financieros" style="margin-top: 2rem;">
+    <h2>Últimas Predicciones (Capa de Datos)</h2>
+    <table style="width: 100%; text-align: left; border-collapse: collapse;">
+      <thead>
+        <tr style="border-bottom: 2px solid #ccc;">
+          <th>Cultivo</th>
+          <th>Rendimiento</th>
+          <th>ROI</th>
+          <th>Hora</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pred of historialPredicciones" style="border-bottom: 1px solid #eee;">
+          <td style="padding: 0.5rem 0;">{{ pred.tipo_cultivo }}</td>
+          <td>{{ pred.rendimiento_estimado_ton }} Ton</td>
+          <td>{{ pred.roi_calculado_porcentaje }}%</td>
+          <td>{{ pred.fecha | date:'shortTime' }}</td>
+        </tr>
+      </tbody>
+    </table>
   </section>
 
 </div>
